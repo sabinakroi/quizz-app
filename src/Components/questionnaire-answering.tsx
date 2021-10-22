@@ -1,12 +1,24 @@
-import React, { useState } from "react";
-import { Scores } from "../Components/scores";
-import { Question } from "../Types/types";
-import { Answers, ButtonWrapper, H1, Wrapper } from "./styles";
+import React, { useEffect, useState } from "react";
+import { useAnswerContext } from "../contexts/answer-context";
+import { Questionnaire } from "../types/types";
+import { Scores } from "./scores";
+import {
+  Answers,
+  ConfirmButton,
+  H1,
+  NextButton,
+  PreviousButton,
+  Wrapper,
+} from "./styles";
 
-export const MainComponent: React.FunctionComponent<{
-  questionList: Question[];
-}> = ({ questionList }) => {
+export const QuestionnaireAnswering: React.FunctionComponent<{
+  questionnaire: Questionnaire;
+}> = ({ questionnaire }) => {
+  const questionList = questionnaire.questions;
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  const { setQuestionnairesAnswers } = useAnswerContext();
 
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = React.useState<
     string | undefined
@@ -15,6 +27,20 @@ export const MainComponent: React.FunctionComponent<{
   const [savedAnswers, setSavedAnswers] = useState<string[]>([]);
 
   const quizzIsCompleted = savedAnswers.length === questionList.length;
+
+  useEffect(() => {
+    if (savedAnswers.length === questionList.length) {
+      setQuestionnairesAnswers((prev) => [
+        ...prev,
+        { id: questionnaire.id, answers: savedAnswers },
+      ]);
+    }
+  }, [
+    questionList.length,
+    questionnaire.id,
+    savedAnswers,
+    setQuestionnairesAnswers,
+  ]);
 
   const handleConfirmClick = () => {
     if (currentSelectedAnswer) {
@@ -49,10 +75,12 @@ export const MainComponent: React.FunctionComponent<{
       <Wrapper>
         <div>
           <H1>
-            Question {currentQuestion + 1} - {questionList.length} <br />
+            Question {currentQuestion + 1} out of {questionList.length}
+          </H1>
+          <div>
             After reading the questions carefully please confirm your answers
             and then click next.
-          </H1>
+          </div>
 
           <div>{questionList[currentQuestion].questionText}</div>
         </div>
@@ -73,14 +101,14 @@ export const MainComponent: React.FunctionComponent<{
               {answerOption.answerText}
             </React.Fragment>
           ))}
-          <ButtonWrapper>
-            <button
+          <div>
+            <PreviousButton
               onClick={handlePreviousClick}
               disabled={questionList[currentQuestion] === questionList[0]}
             >
               Previous
-            </button>
-            <button
+            </PreviousButton>
+            <NextButton
               onClick={handleNextClick}
               disabled={
                 currentQuestion > questionList.length - 1 ||
@@ -88,14 +116,14 @@ export const MainComponent: React.FunctionComponent<{
               }
             >
               Next
-            </button>
-            <button
+            </NextButton>
+            <ConfirmButton
               onClick={handleConfirmClick}
               disabled={!currentSelectedAnswer || isQuestionAnswered}
             >
               Confirm
-            </button>
-          </ButtonWrapper>
+            </ConfirmButton>
+          </div>
         </div>
       </Wrapper>
     </>

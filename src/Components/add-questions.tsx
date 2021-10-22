@@ -1,6 +1,13 @@
+import { Input, Radio } from "antd";
 import React, { FunctionComponent } from "react";
-import { Answer, Question } from "../Types/types";
-import { H1, Label, StyledDiv } from "./styles";
+import { Answer, Question } from "../types/types";
+import {
+  AddAnswersDiv,
+  AddButton,
+  ConfirmButton,
+  H1,
+  StyledDiv,
+} from "./styles";
 
 interface AddQuestionsProps {
   questionsList: Question[];
@@ -20,10 +27,12 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
     if (!isAnyAnswerCorrect) {
       return;
     }
+
     setQuestionsList((previousQuestionsList) => [
       ...previousQuestionsList,
       { questionText: question, answerOptions: answerItems },
     ]);
+
     answerItems.some((ai) => ai.isCorrect === true);
     setAnswersToAdd("");
     setQuestion("");
@@ -82,30 +91,47 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
 
       <div>
         <StyledDiv>
-          <label>Question </label>
-          <input onChange={handleQuestionChange} type="text" value={question} />
+          <H1>Question </H1>
+          <Input
+            placeholder="Type here"
+            onChange={handleQuestionChange}
+            type="text"
+            value={question}
+          />
         </StyledDiv>
+        <br />
         <div>
-          <Label>Add you answer alternatives below</Label>
-          <input
+          <AddAnswersDiv>
+            <H1>Add your answer alternatives below</H1>
+          </AddAnswersDiv>
+          <br />
+          <Input
+            placeholder="Type here"
             type="text"
             onChange={handleAnswerChange}
             value={answerToAdd}
             onKeyDown={handleAnswersKeyDown}
+            disabled={!question}
           />
-          <button onClick={handleAnswersToAddClick} disabled={!answerToAdd}>
+          <AddButton onClick={handleAnswersToAddClick} disabled={!answerToAdd}>
             Add
-          </button>
+          </AddButton>
           <div onChange={handleCorrectAnswerChange}>
             {answerItems.map((item) => (
               <div key={item.answerText}>
-                <input type="radio" value={item.answerText} name="answers" />
+                
+                <Radio type="radio" value={item.answerText} name="answers"/>
                 {item.answerText}
               </div>
             ))}
           </div>
           <div>
-            <button onClick={handleConfirmClick}>Confirm</button>
+            <ConfirmButton
+              onClick={handleConfirmClick}
+              disabled={answerItems.length < 2 || !isAnyAnswerCorrect}
+            >
+              Confirm
+            </ConfirmButton>
           </div>
         </div>
       </div>

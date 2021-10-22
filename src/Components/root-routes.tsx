@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Questionnaire } from "../Types/types";
-import { MainComponent } from "./main-component";
+import { Questionnaire } from "../types/types";
+import { QuestionnaireAnswering } from "./questionnaire-answering";
 
 const QuestionnaireComponent: FunctionComponent<{
   questionnaires: Questionnaire[];
@@ -10,7 +10,7 @@ const QuestionnaireComponent: FunctionComponent<{
   const selectedQuestionnaire = questionnaires.find((q) => q.id === id)!;
   return (
     <div>
-      <MainComponent questionList={selectedQuestionnaire.questions} />
+      <QuestionnaireAnswering questionnaire={selectedQuestionnaire} />
     </div>
   );
 };

@@ -1,89 +1,59 @@
 import styled from "styled-components";
 
+export const Header = styled.h1`
+  background-color: white;
+  color: #0c0c0c;
+  text-align: center;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  margin: 20px;
+  font-size: 25px;
+  color: #020202;
+  font-variant: normal;
+`;
+
 export const Div = styled.div`
-  background-size: cover;
   margin: 0px;
   padding: 0px 20px;
   display: flex;
   box-sizing: border-box;
   display: block;
+  position: relative;
   margin: 8px;
   max-width: 600px;
   background: white;
-  border-radius: 10px;
-  border: gray;
+  border: #030303;
   padding: 20px;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 10px;
   background-attachment: scroll;
-  font-family: Times, Times New Roman, serif;
+  margin: 50px auto;
 `;
 
 export const H1 = styled.h1`
   font-size: 1rem;
   background-color: white;
-  width: 50%;
+  width: 100%;
   height: 2rem;
   display: flex;
-  align-items: center;
-  border: 2px solid skyblue;
-  border-radius: 25px;
-  display: table;
-  font-family: Times, Times New Roman, serif;
   font-size: 16px;
-  color: gray;
+  color: #070707;
   font-variant: normal;
   font-style: oblique;
-  text-align: center;
+  position: relative;
 `;
+
 export const Wrapper = styled.div`
   max-width: 1100px;
-  background: white;
-  border-radius: 10px;
-  border: 2px gray;
+  background: #ffffff;
+  border: 2px skyblue;
   padding: 20px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-  text-align: center;
-`;
-
-export const ButtonWrapper = styled.div`
-  font-size: 1rem;
-  width: 100%;
-  text-align: center;
-  height: 40px;
-  margin: 5px 0;
-  border: 3px solid #fff;
-  border-radius: 10px;
-`;
-
-export const Header = styled.h1`
-  background-color: white;
-  color: gray;
-  text-align: center;
-  width: 22%;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  border: 2px solid skyblue;
-  border-radius: 15px;
-  display: table;
-  padding: 0px 20px;
-  margin: 20px;
-  font-family: Times, Times New Roman, serif;
-  font-size: 16px;
-  color: gray;
-  font-variant: normal;
-  font-style: oblique;
+  box-shadow: 0px 5px 10px rgba(20, 161, 255, 0.25);
   text-align: center;
 `;
 
 export const Answers = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const Label = styled.label`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -95,13 +65,84 @@ export const StyledDiv = styled.div`
   justify-content: space-between;
 `;
 
-export const Divv = styled.div`
+export const ThankyouDiv = styled.div`
+  font-size: 20px;
+  color: #000000;
+  font-variant: normal;
   text-align: center;
+  margin: 10px auto;
+  opacity: 5;
+  background-color: #1a7fd1;
+  color: #ffffff;
+  transition-duration: 0.4s;
 `;
 
 export const Ul = styled.ul`
   width: 100%;
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
+`;
+
+export const AddQuestionsDiv = styled.div`
+  width: 100%;
+  list-style: none;
+`;
+
+export const AddAnswersDiv = styled.div`
+  width: 100%;
+  list-style: none;
+`;
+
+export const AddButton = styled.button`
+  opacity: 5;
+  background-color: #1a7fd1;
+  color: #ffffff;
+  transition-duration: 0.4s;
+
+  :disabled {
+    background-color: #8ebef8;
+  }
+`;
+
+export const ConfirmButton = styled.button`
+  opacity: 5;
+  background-color: #1a7fd1;
+  color: #ffffff;
+  transition-duration: 0.4s;
+
+  :disabled {
+    background-color: #8ebef8;
+  }
+`;
+
+export const NextButton = styled.button`
+  opacity: 5;
+  background-color: #1a7fd1;
+  color: #ffffff;
+  transition-duration: 0.4s;
+
+  :disabled {
+    background-color: #8ebef8;
+  }
+`;
+
+export const PreviousButton = styled.button`
+  opacity: 5;
+  background-color: #1a7fd1;
+  color: #ffffff;
+  transition-duration: 0.4s;
+
+  :disabled {
+    background-color: #8ebef8;
+  }
+`;
+
+export const AddQuestionnaireButton = styled.button`
+  opacity: 5;
+  background-color: #1a7fd1;
+  color: #ffffff;
+  transition-duration: 0.4s;
+
+  :disabled {
+    background-color: #8ebef8;
+  }
 `;

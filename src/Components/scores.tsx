@@ -1,5 +1,6 @@
 import React from "react";
-import { Question } from "../Types/types";
+import { Question } from "../types/types";
+import { Header } from "./styles";
 
 const findIfCorrect = (answer: string, question: Question) => {
   const selectedAnswerOption = question.answerOptions.find(
@@ -28,7 +29,7 @@ export const Scores: React.FC<{
 
   return (
     <body>
-      <h1>Your answers are as below:</h1>
+      <Header>Your answers are:</Header>
       <div>
         <br />
         {answersAndCorrectness.map((ac) => (

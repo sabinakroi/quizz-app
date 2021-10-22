@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { Questionnaire } from "../Types/types";
+import { Questionnaire } from "../types/types";
 import { Ul } from "./styles";
 
 interface NavigationProps {
