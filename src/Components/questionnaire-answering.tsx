@@ -1,4 +1,6 @@
+import { Button } from "antd";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { useAnswerContext } from "../contexts/answer-context";
 import { Questionnaire } from "../types/types";
 import { Scores } from "./scores";
@@ -18,29 +20,37 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const { setQuestionnairesAnswers } = useAnswerContext();
+  const { setQuestionnairesAnswers, questionnairesAnswers } =
+    useAnswerContext();
 
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = React.useState<
     string | undefined
   >();
 
-  const [savedAnswers, setSavedAnswers] = useState<string[]>([]);
+  const questionnaireResult = questionnairesAnswers.find(
+    (x) => x.id === questionnaire.id
+  );
+  const [savedAnswers, setSavedAnswers] = useState<string[]>(
+    questionnaireResult?.answers ?? []
+  );
 
-  const quizzIsCompleted = savedAnswers.length === questionList.length;
+  const quizzIsCompleted =
+    savedAnswers.length === questionList.length || questionnaireResult;
+
+  const history = useHistory();
 
   useEffect(() => {
-    if (savedAnswers.length === questionList.length) {
+    if (quizzIsCompleted && !questionnaireResult) {
       setQuestionnairesAnswers((prev) => [
         ...prev,
         { id: questionnaire.id, answers: savedAnswers },
       ]);
     }
-  }, [
-    questionList.length,
-    questionnaire.id,
-    savedAnswers,
-    setQuestionnairesAnswers,
-  ]);
+  }, [questionList.length, questionnaire.id, questionnaireResult, quizzIsCompleted, savedAnswers, setQuestionnairesAnswers]);
+
+  const handleGoToCreator = () => {
+    history.push("/creatorq");
+  };
 
   const handleConfirmClick = () => {
     if (currentSelectedAnswer) {
@@ -65,7 +75,18 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
   };
 
   if (quizzIsCompleted) {
-    return <Scores savedAnswers={savedAnswers} questions={questionList} />;
+    return (
+      <div>
+        <Scores savedAnswers={savedAnswers} questions={questionList} />
+        {quizzIsCompleted && (
+          <div>
+            <Button onClick={handleGoToCreator}>
+              Add another questionnaire
+            </Button>
+          </div>
+        )}
+      </div>
+    );
   }
 
   const isQuestionAnswered = savedAnswers.length >= currentQuestion + 1;
@@ -77,11 +98,6 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
           <H1>
             Question {currentQuestion + 1} out of {questionList.length}
           </H1>
-          <div>
-            After reading the questions carefully please confirm your answers
-            and then click next.
-          </div>
-
           <div>{questionList[currentQuestion].questionText}</div>
         </div>
         <Answers>Your answer {savedAnswers}</Answers>

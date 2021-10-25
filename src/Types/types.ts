@@ -13,3 +13,8 @@ export type Questionnaire = {
   title: string;
   questions: Question[];
 };
+
+export type QuestionnaireResult = {
+  id: string;
+  answers: string[];
+};

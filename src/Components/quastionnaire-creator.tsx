@@ -1,10 +1,9 @@
-import { Input } from "antd";
-import { Header } from "antd/lib/layout/layout";
+import { Button, Input } from "antd";
 import React, { ChangeEventHandler, useState } from "react";
 import { v4 } from "uuid";
 import { Question, Questionnaire } from "../types/types";
 import AddQuestions from "./add-questions";
-import { AddQuestionnaireButton, AddQuestionsDiv as H1 } from "./styles";
+import { H1 } from "./styles";
 
 export const QuestionnaireCreator: React.FunctionComponent<{
   onConfirmCreateQuestionnaire: (quesionnaire: Questionnaire) => void;
@@ -29,10 +28,7 @@ export const QuestionnaireCreator: React.FunctionComponent<{
 
   return (
     <div>
-      <div />
-      <H1>Add questions to the quizz</H1>
-      <div />
-      <Header>Quetionnaire title: </Header>
+      <H1>Quetionnaire title </H1>
       <br />
       <Input
         placeholder="Type here"
@@ -40,12 +36,13 @@ export const QuestionnaireCreator: React.FunctionComponent<{
         onChange={handleTitleChange}
       />
       <AddQuestions questionsList={questions} setQuestionsList={setQuestions} />
-      <AddQuestionnaireButton
+      <Button
+        type="primary"
         onClick={handleAddQuestionnaireConfirm}
         disabled={questions.length < 2}
       >
         Add questionnaire
-      </AddQuestionnaireButton>
+      </Button>
     </div>
   );
 };

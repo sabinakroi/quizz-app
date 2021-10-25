@@ -1,6 +1,6 @@
 import React from "react";
 import { Question } from "../types/types";
-import { Header } from "./styles";
+import { H1 } from "./styles";
 
 const findIfCorrect = (answer: string, question: Question) => {
   const selectedAnswerOption = question.answerOptions.find(
@@ -28,20 +28,20 @@ export const Scores: React.FC<{
   }, 0);
 
   return (
-    <body>
-      <Header>Your answers are:</Header>
-      <div>
-        <br />
-        {answersAndCorrectness.map((ac) => (
-          <div key={ac.answer}>
-            {ac.answer} / {ac.isCorrect ? "Correct" : "Not Correct"}
-          </div>
-        ))}
-        <br />
-        <div>
-          You answered correctly {score} questions out of {questions.length}
+    <div>
+      <H1>Your answers are</H1>
+      <br />
+      {answersAndCorrectness.map((ac) => (
+        <div key={ac.answer}>
+          {ac.answer} {ac.isCorrect ? " ✔️ Correct" : " ✖️ Wrong"}
         </div>
+      ))}
+      <br />
+      <div>
+        <H1>
+          You answered correctly {score} questions out of {questions.length}
+        </H1>
       </div>
-    </body>
+    </div>
   );
 };

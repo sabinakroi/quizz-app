@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { Questionnaire } from "../types/types";
+import QuestionnaireCreator from "./quastionnaire-creator";
 import { QuestionnaireAnswering } from "./questionnaire-answering";
 
 const QuestionnaireComponent: FunctionComponent<{
@@ -15,14 +16,25 @@ const QuestionnaireComponent: FunctionComponent<{
   );
 };
 
-const RootRoutes: FunctionComponent<{ questionnaires: Questionnaire[] }> = ({
-  questionnaires,
-}) => {
+const RootRoutes: FunctionComponent<{
+  questionnaires: Questionnaire[];
+  handleQuestionnaireAdd: (questionnaire: Questionnaire) => void;
+}> = ({ questionnaires, handleQuestionnaireAdd }) => {
   const routes = questionnaires.map((q) => (
     <Route key={q.id} exact path={`/questionnaire/${q.id}`}>
       <QuestionnaireComponent id={q.id} questionnaires={questionnaires} />
     </Route>
   ));
-  return <Switch>{routes}</Switch>;
+  return (
+    <Switch>
+      {routes}
+      <Route exact path={`/creator`}>
+        <QuestionnaireCreator
+          onConfirmCreateQuestionnaire={handleQuestionnaireAdd}
+        />
+      </Route>
+      <Redirect to="/creator" />
+    </Switch>
+  );
 };
 export default RootRoutes;

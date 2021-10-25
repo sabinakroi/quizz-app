@@ -1,39 +1,59 @@
-import { Button } from "antd";
-import React, { FunctionComponent } from "react";
-import { Link, Route, Switch } from "react-router-dom";
-import { QuestionnaireAnswering } from "./questionnaire-answering";
+import { Button, Collapse, Typography } from "antd";
+import React, { FunctionComponent, useState } from "react";
+import { Questionnaire, QuestionnaireResult } from "../types/types";
 
 interface SavedAnswersProps {
-  questionnairesAnswers: {
-    id: string;
-    answers: string[];
-  }[];
-  setQuestionnairesAnswers: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: string;
-        answers: string[];
-      }[]
-    >
-  >;
+  questionnairesAnswers: QuestionnaireResult[];
+  questionnaires: Questionnaire[];
 }
+
+const QuestionnaireAnswers: FunctionComponent<{
+  questionnaire: Questionnaire;
+  answers: string[];
+}> = ({ questionnaire, answers }) => {
+  const answerDisplays = answers.map((answer, i) => (
+    <div key={answer}>
+      <div>
+        <Typography.Text underline strong>
+          {questionnaire.questions[i].questionText}
+        </Typography.Text>
+      </div>
+      <div>
+        <Typography.Text>{answer}</Typography.Text>
+      </div>
+    </div>
+  ));
+  return <div>{answerDisplays}</div>;
+};
 
 const SavedAnswers: FunctionComponent<SavedAnswersProps> = ({
   questionnairesAnswers,
-  setQuestionnairesAnswers,
+  questionnaires,
 }) => {
+  const [shouldShowAnswers, setShouldShowAnswers] = useState(false);
+  const handleClick = () => {
+    setShouldShowAnswers((prev) => !prev);
+  };
+  const answeredQuestionnairesList = questionnairesAnswers.map((result) => {
+    const questionnaire = questionnaires.find((q) => q.id === result.id)!;
+    return (
+      <Collapse.Panel header={questionnaire.title} key={result.id}>
+        <QuestionnaireAnswers
+          questionnaire={questionnaire}
+          answers={result.answers}
+        />
+      </Collapse.Panel>
+    );
+  });
+
   return (
     <div>
       <div>
-        <Link to="/savedAnswers">
-          <Button type="link"> Saved answers</Button>
-        </Link>
+        <Button onClick={handleClick}> Saved answers 🔐</Button>
       </div>
-      <Switch>
-        <Route path="/savedAnswers" component={QuestionnaireAnswering}>
-          {" "}
-        </Route>
-      </Switch>
+      {shouldShowAnswers && (
+        <Collapse accordion>{answeredQuestionnairesList}</Collapse>
+      )}
     </div>
   );
 };

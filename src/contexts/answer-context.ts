@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { QuestionnaireResult } from "../types/types";
 
 export const AnswerContext = React.createContext<
   | {
@@ -10,6 +11,7 @@ export const AnswerContext = React.createContext<
           }[]
         >
       >;
+      questionnairesAnswers: QuestionnaireResult[];
     }
   | undefined
 >(undefined);

@@ -85,12 +85,11 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
 
   return (
     <div>
-      <H1>
-        Fill in the template in order to add extra questions to the quizz!
-      </H1>
-
       <div>
         <StyledDiv>
+          <H1>
+            Fill in the template in order to add extra questions to the quizz!
+          </H1>
           <H1>Question </H1>
           <Input
             placeholder="Type here"
@@ -119,8 +118,7 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
           <div onChange={handleCorrectAnswerChange}>
             {answerItems.map((item) => (
               <div key={item.answerText}>
-                
-                <Radio type="radio" value={item.answerText} name="answers"/>
+                <Radio type="radio" value={item.answerText} name="answers" />
                 {item.answerText}
               </div>
             ))}
