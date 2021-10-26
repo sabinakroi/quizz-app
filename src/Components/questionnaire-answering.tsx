@@ -5,6 +5,7 @@ import { useAnswerContext } from "../contexts/answer-context";
 import { Questionnaire } from "../types/types";
 import { Scores } from "./scores";
 import {
+  AnswerOptionsDiv,
   Answers,
   ConfirmButton,
   H1,
@@ -46,7 +47,14 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
         { id: questionnaire.id, answers: savedAnswers },
       ]);
     }
-  }, [questionList.length, questionnaire.id, questionnaireResult, quizzIsCompleted, savedAnswers, setQuestionnairesAnswers]);
+  }, [
+    questionList.length,
+    questionnaire.id,
+    questionnaireResult,
+    quizzIsCompleted,
+    savedAnswers,
+    setQuestionnairesAnswers,
+  ]);
 
   const handleGoToCreator = () => {
     history.push("/creatorq");
@@ -86,7 +94,7 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
           </div>
         )}
       </div>
-    );
+    )
   }
 
   const isQuestionAnswered = savedAnswers.length >= currentQuestion + 1;
@@ -101,9 +109,11 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
           <div>{questionList[currentQuestion].questionText}</div>
         </div>
         <Answers>Your answer {savedAnswers}</Answers>
-        <div onChange={handleChange}>
+        <AnswerOptionsDiv onChange={handleChange}>
           {questionList[currentQuestion].answerOptions.map((answerOption) => (
             <React.Fragment key={answerOption.answerText}>
+              {" "}
+              <br />
               <input
                 type="radio"
                 value={answerOption.answerText}
@@ -140,7 +150,7 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
               Confirm
             </ConfirmButton>
           </div>
-        </div>
+        </AnswerOptionsDiv>
       </Wrapper>
     </>
   );

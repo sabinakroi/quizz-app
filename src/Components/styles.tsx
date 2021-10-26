@@ -50,7 +50,6 @@ export const Wrapper = styled.div`
   border: 2px skyblue;
   padding: 20px;
   box-shadow: 0px 5px 10px rgba(29, 30, 31, 0.25);
-  text-align: center;
 `;
 
 export const Answers = styled.div`
@@ -99,6 +98,14 @@ export const AddQuestionsDiv = styled.div`
 export const AddAnswersDiv = styled.div`
   width: 100%;
   list-style: none;
+`;
+export const AnswerOptionsDiv = styled.div`
+  width: 100%;
+  list-style: none;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 export const AddButton = styled.button`
