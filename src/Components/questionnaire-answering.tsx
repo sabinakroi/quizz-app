@@ -6,7 +6,6 @@ import { Questionnaire } from "../types/types";
 import { Scores } from "./scores";
 import {
   AnswerOptionsDiv,
-  Answers,
   ConfirmButton,
   H1,
   NextButton,
@@ -57,7 +56,7 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
   ]);
 
   const handleGoToCreator = () => {
-    history.push("/creatorq");
+    history.push("/creator");
   };
 
   const handleConfirmClick = () => {
@@ -94,7 +93,7 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
           </div>
         )}
       </div>
-    )
+    );
   }
 
   const isQuestionAnswered = savedAnswers.length >= currentQuestion + 1;
@@ -108,7 +107,6 @@ export const QuestionnaireAnswering: React.FunctionComponent<{
           </H1>
           <div>{questionList[currentQuestion].questionText}</div>
         </div>
-        <Answers>Your answer {savedAnswers}</Answers>
         <AnswerOptionsDiv onChange={handleChange}>
           {questionList[currentQuestion].answerOptions.map((answerOption) => (
             <React.Fragment key={answerOption.answerText}>

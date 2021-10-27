@@ -62,11 +62,12 @@ export const Answers = styled.div`
   width: 100%;
   height: 2rem;
   display: flex;
-  font-size: 16px;
+  font-size: 18px;
   color: #070707;
   font-variant: normal;
   font-style: oblique;
-  position: relative;
+  position: relative
+  
 `;
 
 export const StyledDiv = styled.div`

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { defaultQuestionnaire } from "../App";
 import { AnswerContext } from "../contexts/answer-context";
 import { Questionnaire } from "../types/types";
 import QuestionnaireSelector from "./questionnaire-selector";
@@ -8,9 +9,8 @@ import SavedAnswers from "./saved-answers";
 import { Div, H1, Header, ThankyouDiv } from "./styles";
 
 const Main = () => {
-  const [questionnaires, setQuestionnaires] = React.useState<Questionnaire[]>(
-    []
-  );
+  const [questionnaires, setQuestionnaires] =
+    React.useState<Questionnaire[]>(defaultQuestionnaire);
 
   const [questionnairesAnswers, setQuestionnairesAnswers] = React.useState<
     { id: string; answers: string[] }[]
