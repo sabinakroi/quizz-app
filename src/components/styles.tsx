@@ -59,15 +59,14 @@ export const Answers = styled.div`
   justify-content: space-between;
   font-size: 1rem;
   background-color: white;
-  width: 100%;
+  width: 50%;
   height: 2rem;
   display: flex;
   font-size: 18px;
   color: #070707;
   font-variant: normal;
   font-style: oblique;
-  position: relative
-  
+  position: relative;
 `;
 
 export const StyledDiv = styled.div`
@@ -104,7 +103,6 @@ export const AnswerOptionsDiv = styled.div`
   width: 100%;
   list-style: none;
   justify-content: space-between;
-  display: flex;
   flex-direction: column;
   position: relative;
 `;

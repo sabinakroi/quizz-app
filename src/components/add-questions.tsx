@@ -1,4 +1,4 @@
-import { Input, Radio } from "antd";
+import { Input, Radio, RadioChangeEvent, Space } from "antd";
 import React, { FunctionComponent } from "react";
 import { Answer, Question } from "../types/types";
 import {
@@ -71,17 +71,16 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
     }
   };
 
-  const handleCorrectAnswerChange: React.ChangeEventHandler<HTMLInputElement> =
-    (e) => {
-      setAnswersItems((previousAnswerItems) => {
-        const newArr = previousAnswerItems.map((ai) =>
-          ai.answerText === e.target.value
-            ? { ...ai, isCorrect: true }
-            : { ...ai, isCorrect: false }
-        );
-        return newArr;
-      });
-    };
+  const handleCorrectAnswerChange = (e: RadioChangeEvent) => {
+    setAnswersItems((previousAnswerItems) => {
+      const newArr = previousAnswerItems.map((ai) =>
+        ai.answerText === e.target.value
+          ? { ...ai, isCorrect: true }
+          : { ...ai, isCorrect: false }
+      );
+      return newArr;
+    });
+  };
 
   return (
     <div>
@@ -98,31 +97,35 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
             value={question}
           />
         </StyledDiv>
-        <br />
         <div>
           <AddAnswersDiv>
             <H1>Add your answer alternatives below</H1>
           </AddAnswersDiv>
-          <br />
-          <Input
-            placeholder="Type here"
-            type="text"
-            onChange={handleAnswerChange}
-            value={answerToAdd}
-            onKeyDown={handleAnswersKeyDown}
-            disabled={!question}
-          />
-          <AddButton onClick={handleAnswersToAddClick} disabled={!answerToAdd}>
-            Add
-          </AddButton>
-          <div onChange={handleCorrectAnswerChange}>
-            {answerItems.map((item) => (
-              <div key={item.answerText}>
-                <Radio type="radio" value={item.answerText} name="answers" />
-                {item.answerText}
-              </div>
-            ))}
+          <div>
+            <Input
+              placeholder="Type here"
+              type="text"
+              onChange={handleAnswerChange}
+              value={answerToAdd}
+              onKeyDown={handleAnswersKeyDown}
+              disabled={!question}
+            />
+            <AddButton
+              onClick={handleAnswersToAddClick}
+              disabled={!answerToAdd}
+            >
+              Add
+            </AddButton>
           </div>
+          <Radio.Group onChange={handleCorrectAnswerChange}>
+            <Space direction="vertical">
+              {answerItems.map((item) => (
+                <Radio key={item.answerText} value={item.answerText}>
+                  {item.answerText}
+                </Radio>
+              ))}
+            </Space>
+          </Radio.Group>
           <div>
             <ConfirmButton
               onClick={handleConfirmClick}
