@@ -6,7 +6,7 @@ import {
   AddButton,
   ConfirmButton,
   H1,
-  StyledDiv,
+  StyledDiv
 } from "./styles";
 
 interface AddQuestionsProps {
@@ -110,22 +110,26 @@ export const AddQuestions: FunctionComponent<AddQuestionsProps> = ({
               onKeyDown={handleAnswersKeyDown}
               disabled={!question}
             />
-            <AddButton
-              onClick={handleAnswersToAddClick}
-              disabled={!answerToAdd}
-            >
-              Add
-            </AddButton>
+            <div>
+              <AddButton
+                onClick={handleAnswersToAddClick}
+                disabled={!answerToAdd}
+              >
+                Add
+              </AddButton>
+            </div>
           </div>
-          <Radio.Group onChange={handleCorrectAnswerChange}>
-            <Space direction="vertical">
-              {answerItems.map((item) => (
-                <Radio key={item.answerText} value={item.answerText}>
-                  {item.answerText}
-                </Radio>
-              ))}
-            </Space>
-          </Radio.Group>
+          <div>
+            <Radio.Group onChange={handleCorrectAnswerChange}>
+              <Space direction="vertical">
+                {answerItems.map((item) => (
+                  <Radio key={item.answerText} value={item.answerText}>
+                    {item.answerText}
+                  </Radio>
+                ))}
+              </Space>
+            </Radio.Group>
+          </div>
           <div>
             <ConfirmButton
               onClick={handleConfirmClick}

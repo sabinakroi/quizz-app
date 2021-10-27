@@ -30,6 +30,13 @@ export const Div = styled.div`
   background-attachment: scroll;
   margin: 50px auto;
 `;
+export const MarginedDiv = styled.div`
+  width: 100%;
+  list-style: none;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+`;
 
 export const H1 = styled.h1`
   font-size: 1rem;
